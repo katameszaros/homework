@@ -18,20 +18,22 @@ operations = {
     '/' : div,
 }
 
+def is_valid_operator(candidate):
+    found_valid_operator = False
+    for key in sorted(operations.keys()):
+        if key == candidate:
+            found_valid_operator = True
+            break
+        else:
+            pass
+    return found_valid_operator
+
 def input_and_validate_operator():
     operator = ""
     while operator == "":
         operator = input("Enter an operator: ")
-        found_valid_operator = False
-
-        for key in sorted(operations.keys()):
-            if key == operator:
-                found_valid_operator = True
-                break
-            else:
-                pass
-
-        if found_valid_operator == False:
+        
+        if is_valid_operator(operator) == False:
             operator = ""
             print("Invalid operator")
         else:
