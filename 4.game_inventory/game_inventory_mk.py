@@ -20,5 +20,29 @@ def add_to_inventory(inventory, added_items):
 
 inv = add_to_inventory(inv, dragon_loot)
 
-display_inventory()
+def print_header(first_column_width, second_column_width):
+    print("count".rjust(second_column_width) + "item name".rjust(first_column_width))
+
+def print_table():
+    copy_inv = dict(inv)
+    copy_inv["count"] = "item name"
+    first_column_width = 0
+    second_column_width = 0
+
+    for key, value in copy_inv.items():
+        first_column_width = max(first_column_width, len(key))
+        second_column_width = max(second_column_width, len(str(value)))
+
+    first_column_width += 5
+    print("Inventory: ")
+    print_header(first_column_width, second_column_width)
+
+    print('-'* (first_column_width + second_column_width))
+
+    for key, value in inv.items():
+        print(str(value).rjust(second_column_width) + key.rjust(first_column_width))
+    print('-'* (first_column_width + second_column_width))
+    print("Total number of items: " + str(sum(inv.values())))
+#display_inventory()
+print_table()
 
