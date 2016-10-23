@@ -124,7 +124,7 @@ def export_inventory(filename="export_inventory.csv"):
         
     
 inv = add_to_inventory(inv, dragon_loot)
-import_inventory()
+#import_inventory()
 print_table("count,desc")
 export_inventory()
 
