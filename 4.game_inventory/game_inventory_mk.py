@@ -69,9 +69,19 @@ def import_inventory(filename="import_inventory.csv"):
             d[key] = int(value)
     global inv
     inv = merge_inventories(inv, d)
+
+def export_inventory(filename="export_inventory.csv"):
+    with open(filename, "w") as f:
+        f.write("{0},{1}\n".format("item_name", "count"))
+        for key, value in inv.items():
+            f.write("{0},{1}\n".format(key, value))
+        
+
+
     
 import_inventory()
 print_table()
+export_inventory()
 
 
 
