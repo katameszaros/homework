@@ -20,12 +20,14 @@ def add_to_inventory(inventory, added_items):
 
 inv = add_to_inventory(inv, dragon_loot)
 
-def print_header(first_column_width, second_column_width):
-    print("count".rjust(second_column_width) + "item name".rjust(first_column_width))
+def print_header(first_column_width, second_column_width,first_column_header, second_column_header):
+    print(second_column_header.rjust(second_column_width) + first_column_header.rjust(first_column_width))
 
 def print_table():
     copy_inv = dict(inv)
-    copy_inv["count"] = "item name"
+    first_column_header = "item name"
+    second_column_header = "count" 
+    copy_inv[second_column_header] = first_column_header
     first_column_width = 0
     second_column_width = 0
 
@@ -35,7 +37,7 @@ def print_table():
 
     first_column_width += 5
     print("Inventory: ")
-    print_header(first_column_width, second_column_width)
+    print_header(first_column_width, second_column_width, first_column_header, second_column_header)
 
     print('-'* (first_column_width + second_column_width))
 
@@ -43,6 +45,33 @@ def print_table():
         print(str(value).rjust(second_column_width) + key.rjust(first_column_width))
     print('-'* (first_column_width + second_column_width))
     print("Total number of items: " + str(sum(inv.values())))
-#display_inventory()
+
+
+def merge_inventories(inv1, inv2):
+    merged = dict(inv1)
+    print(inv2)
+    for key, value in inv2.items():
+        if key in merged.keys():
+            count = merged.get(key)
+            count += value
+            merged[key] = count
+        else:
+            merged[key]= value
+    return merged
+
+def import_inventory(filename="import_inventory.csv"):
+    d = {}
+    with open(filename) as f:
+        lines = f.readlines()
+        for i in range(1, len(lines)):
+            line=lines[i]
+            (key, value) = line.split(",")
+            d[key] = int(value)
+    global inv
+    inv = merge_inventories(inv, d)
+    
+import_inventory()
 print_table()
+
+
 
